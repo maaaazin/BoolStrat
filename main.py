@@ -1,18 +1,16 @@
 from data.loader import DataLoader
-from indicators import SMA, EMA
+from strategies.sma_cross import SMACrossoverStrategy
 
 loader = DataLoader()
 
 data = loader.load_yahoo(
-    ticker="AAPL",
-    start="2024-01-01",
-    end="2025-01-01",
+    "AAPL",
+    "2024-01-01",
+    "2025-01-01",
 )
 
-sma20 = SMA(20)
-ema50 = EMA(50)
+strategy = SMACrossoverStrategy()
 
-data["SMA20"] = sma20.calculate(data)
-data["EMA50"] = ema50.calculate(data)
+signals = strategy.generate_signals(data)
 
-print(data.tail())
+print(signals.tail())

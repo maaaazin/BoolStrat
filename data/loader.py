@@ -27,5 +27,7 @@ class DataLoader:
             auto_adjust=True,
             progress=False,
         )
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
 
         return df
